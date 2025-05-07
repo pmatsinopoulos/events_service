@@ -1,6 +1,13 @@
+require "sidekiq/web" # require the web UI
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+
   resources :events
   resources :subscriptions
+
+  post "events/callback", to: "events#callback", as: :events_callback
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

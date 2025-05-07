@@ -19,4 +19,25 @@ class Event < ApplicationRecord
     cloud_computing_conference: "cloud_computing_conference",
     cybersecurity_conference: "cybersecurity_conference"
   }
+
+  after_create_commit :publish_event_to_subscribers
+
+  def to_subscription_json
+    {
+      id:,
+      event_type:,
+      name:,
+      starts_at: starts_at.iso8601,
+      ends_at: ends_at.iso8601,
+      longitude:,
+      latitude:,
+      address:
+    }.to_json
+  end
+
+  protected
+
+  def publish_event_to_subscribers
+    PublishEventJob.perform_later(id)
+  end
 end

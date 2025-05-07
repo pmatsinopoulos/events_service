@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
+  skip_forgery_protection only: :callback
 
   # GET /events or /events.json
   def index
@@ -55,6 +56,14 @@ class EventsController < ApplicationController
       format.html { redirect_to events_path, status: :see_other, notice: "Event was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def callback
+    Rails.logger.debug "Processing event: params=#{params.inspect}"
+    event_payload = request.body.read
+    event_payload = ActiveSupport::JSON.decode(event_payload)
+    Rails.logger.debug "Event payload: #{event_payload.inspect}"
+    head :ok
   end
 
   private
