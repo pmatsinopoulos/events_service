@@ -1,28 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Events Service" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= yield :head %>
+<head>
+  <title><%= content_for(:title) || "Events Service" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <%= yield :head %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-  <body>
-    <%= yield %>
-  </body>
+  <%# Includes all stylesheet files in app/assets/stylesheets %>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+  <%= yield %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const map = L.map("map").setView([0, 0], 2);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      let marker;
+
+      // Use browser location if available
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(pos) {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            map.setView([lat, lng], 13);
+            marker = L.marker([lat, lng]).addTo(map);
+            document.getElementById("event_latitude").value = lat.toFixed(6);
+            document.getElementById("event_longitude").value = lng.toFixed(6);
+          },
+          () => console.warn("Geolocation not available.")
+        );
+      }
+
+      // Handle map click
+      map.on("click", function(e) {
+        const {
+          lat,
+          lng
+        } = e.latlng;
+        if (!marker) {
+          marker = L.marker([lat, lng]).addTo(map);
+        } else {
+          marker.setLatLng([lat, lng]);
+        }
+        document.getElementById("event_latitude").value = lat.toFixed(6);
+        document.getElementById("event_longitude").value = lng.toFixed(6);
+      });
+
+      // Handle address search
+      document.getElementById("geocode_button").addEventListener("click", function() {
+        const address = document.getElementById("address_search").value;
+        if (!address) return;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.length === 0) {
+              alert("Address not found.");
+              return;
+            }
+
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+
+            map.setView([lat, lon], 13);
+            if (!marker) {
+              marker = L.marker([lat, lon]).addTo(map);
+            } else {
+              marker.setLatLng([lat, lon]);
+            }
+
+            document.getElementById("event_latitude").value = lat.toFixed(6);
+            document.getElementById("event_longitude").value = lon.toFixed(6);
+          })
+          .catch(err => {
+            console.error("Geocoding error:", err);
+            alert("Failed to find location.");
+          });
+      });
+    });
+  </script>
+
+</body>
+
 </html>
