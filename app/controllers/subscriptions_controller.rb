@@ -65,6 +65,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def subscription_params
-      params.expect(subscription: [ :name, :url, :active ])
+      params.expect(subscription: [ :event_type, :name, :url, :active ])
     end
 end

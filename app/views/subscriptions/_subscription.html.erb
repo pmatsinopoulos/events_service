@@ -1,5 +1,10 @@
 <div id="<%= dom_id subscription %>">
   <p>
+    <strong>Event type:</strong>
+    <%= subscription.event_type.humanize %>
+  </p>
+
+  <p>
     <strong>Name:</strong>
     <%= subscription.name %>
   </p>
