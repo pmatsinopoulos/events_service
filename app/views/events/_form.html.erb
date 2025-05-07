@@ -1,0 +1,60 @@
+<%= form_with(model: event) do |form| %>
+<% if event.errors.any? %>
+<div style="color: red">
+  <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+  <ul>
+    <% event.errors.each do |error| %>
+    <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div>
+  <%= form.label :event_type, style: "display: block" %>
+  <%= form.select :event_type, Event.event_types.keys.map { |type| [type.humanize, type] }, { include_blank: true } %>
+</div>
+
+<div>
+  <%= form.label :name, style: "display: block" %>
+  <%= form.text_field :name %>
+</div>
+
+<div>
+  <%= form.label :starts_at, style: "display: block" %>
+  <%= form.datetime_field :starts_at %>
+</div>
+
+<div>
+  <%= form.label :ends_at, style: "display: block" %>
+  <%= form.datetime_field :ends_at %>
+</div>
+
+<div>
+  <%= form.label :longitude, style: "display: block" %>
+  <%= form.text_field :longitude %>
+</div>
+
+<div>
+  <%= form.label :latitude, style: "display: block" %>
+  <%= form.text_field :latitude %>
+</div>
+
+<div>
+  <%= form.label :address, style: "display: block" %>
+  <%= form.text_field :address, id: "event_address" %>
+  <button type="button" id="geocode_button" style="margin-top: 5px;">Search</button>
+</div>
+
+<div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+
+<div>
+  <%= form.label :active, style: "display: block" %>
+  <%= form.checkbox :active %>
+</div>
+
+<div>
+  <%= form.submit %>
+</div>
+<% end %>

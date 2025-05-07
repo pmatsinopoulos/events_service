@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_161501) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_164811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "event_type", null: false
+    t.string "name", null: false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.float "longitude"
+    t.float "latitude"
+    t.string "address"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_events_on_name"
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "name", null: false
