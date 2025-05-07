@@ -65,6 +65,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.expect(event: [ :name, :starts_at, :ends_at, :longitude, :latitude, :active ])
+      params.expect(event: [ :event_type, :name, :address, :starts_at, :ends_at, :longitude, :latitude, :active ])
     end
 end

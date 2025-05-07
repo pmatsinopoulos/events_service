@@ -12,6 +12,11 @@
 <% end %>
 
 <div>
+  <%= form.label :event_type, style: "display: block" %>
+  <%= form.select :event_type, Event.event_types.keys.map { |type| [type.humanize, type] }, { include_blank: true } %>
+</div>
+
+<div>
   <%= form.label :name, style: "display: block" %>
   <%= form.text_field :name %>
 </div>
@@ -37,8 +42,8 @@
 </div>
 
 <div>
-  <label for="address_search" style="display: block;">Search Address</label>
-  <input type="text" id="address_search" placeholder="Type an address..." style="width: 100%; padding: 8px; margin-bottom: 10px;">
+  <%= form.label :address, style: "display: block" %>
+  <%= form.text_field :address, id: "event_address" %>
   <button type="button" id="geocode_button" style="margin-top: 5px;">Search</button>
 </div>
 
