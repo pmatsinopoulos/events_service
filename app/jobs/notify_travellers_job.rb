@@ -1,7 +1,7 @@
 class NotifyTravellersJob < ApplicationJob
   queue_as :default
 
-  def perform(event, results_page_url))
+  def perform(event, results_page_url)
     sms_body = "Event: #{event["name"]}, Date: #{event["starts_at"]}, Location: #{event["address"]}, More Info: #{results_page_url}"
     Traveller.where(event_type: event["event_type"]).find_each do |traveller|
       begin
