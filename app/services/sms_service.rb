@@ -19,10 +19,13 @@ module SmsService
         fromLabel: "LovHolidays",
         smsBody: message
       }.to_json
+      Rails.logger.info("Sending SMS to #{phone_number}: #{message}, fromLabel: LovHolidays")
 
       response = conn.post("/send_sms") do |req|
         req.body = payload
       end
+
+      Rails.logger.info("SMS sent to #{phone_number}: #{response.status} - #{response.body}")
     end
   end
 end
