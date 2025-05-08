@@ -6,13 +6,15 @@ module SmsService
       api_key = ENV["SMS_SERVICE_API_KEY"]
 
       conn = Faraday.new(
-        url: "https://sms-api.rayo.gr/v1",
+        url: "https://sms-api.rayo.gr/v1/send_sms",
         headers: {
           "Content-Type" => "application/json",
           "Accept" => "application/json",
           "Authorization" => "Bearer #{api_key}"
         }
       )
+
+      Rails.logger.info("Sending SMS conn is #{conn.inspect}")
 
       payload = {
         toMobileNumber: phone_number,
@@ -21,7 +23,7 @@ module SmsService
       }.to_json
       Rails.logger.info("Sending SMS to #{phone_number}: #{message}, fromLabel: LovHolidays")
 
-      response = conn.post("/send_sms") do |req|
+      response = conn.post("/") do |req|
         req.body = payload
       end
 
