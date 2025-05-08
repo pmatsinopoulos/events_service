@@ -64,6 +64,7 @@ class TravellersController < ApplicationController
     event = request_body["event"]
     results_page_url = request_body["results_page_url"]
     NotifyTravellersJob.perform_later(event, results_page_url)
+    head :ok
   end
 
   private

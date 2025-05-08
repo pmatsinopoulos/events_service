@@ -1,24 +1,28 @@
-# README
+# Decode Travel May 2025 - Crete
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is one of two repositories created and developed
+as par tof the Decode Travel occurred in May 2025, at Crete.
 
-Things you may want to cover:
+# The Main Idea
 
-* Ruby version
+Personalized hotel recommendations.
+Travellers are notified for hotel offers related to their
+interests.
 
-* System dependencies
+# Components
 
-* Configuration
+- Events Service. This repository
+- Camino Distributor Partner. [Other repository](https://github.com/teonetmatch/CaminoHackathonApi)
+- Camino Network
 
-* Database creation
+# Architecture Diagram
 
-* Database initialization
+![architecture](./architecture.drawio.png)
 
-* How to run the test suite
+# Production
 
-* Services (job queues, cache servers, search engines, etc.)
+The Events Service is online [here](https://events-service-voja.onrender.com/)
 
-* Deployment instructions
+# Usage
 
-* ...
+Read the readme at the other repository [here](https://github.com/teonetmatch/CaminoHackathonApi)
