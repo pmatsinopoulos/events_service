@@ -1,12 +1,15 @@
 <% content_for :title, "Editing event" %>
 
+<p style="color: green"><%= notice %></p>
+
 <h1>Editing event</h1>
 
 <%= render "form", event: @event %>
 
 <br>
 
-<div>
-  <%= link_to "Show this event", @event %> |
+<%= button_to "Delete this event", @event, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: 'Are you sure?'} %>
+
+<div style="margin-top: 20px;">
   <%= link_to "Back to events", events_path %>
 </div>

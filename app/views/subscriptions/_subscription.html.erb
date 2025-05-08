@@ -1,20 +1,11 @@
 <tr>
   <td>
-    <%= link_to subscription.name, subscription_path(subscription) %>
+    <%= link_to subscription.name, edit_subscription_path(subscription) %>
   </td>
   <td>
     <%= subscription.event_type.humanize %>
   </td>
   <td>
     <%= subscription.url %>
-  </td>
-  <td>
-    <%= link_to "Show", subscription %>
-  </td>
-  <td>
-    <%= link_to "Edit", edit_subscription_path(subscription) %>
-  </td>
-  <td>
-    <%= link_to "Delete", subscription, method: :delete, data: { confirm: "Are you sure?" } %>
   </td>
 </tr>
