@@ -1,12 +1,15 @@
 <% content_for :title, "Editing subscription" %>
 
+<p style="color: green"><%= notice %></p>
+
 <h1>Editing subscription</h1>
 
 <%= render "form", subscription: @subscription %>
 
 <br>
 
-<div>
-  <%= link_to "Show this subscription", @subscription %> |
+<%= button_to "Delete this subscription", @subscription, method: :delete, class: "btn btn-danger btn-sm", data: {confirm: 'Are you sure?'} %>
+
+<div style="margin-top: 20px;">
   <%= link_to "Back to subscriptions", subscriptions_path %>
 </div>
