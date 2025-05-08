@@ -7,7 +7,7 @@
           <use xlink:href="#collection"></use>
         </svg>
       </div>
-      <h2>Subscriptions</h2>
+      <h2><%= link_to 'Subscriptions', subscriptions_path %></h2>
       <p>Do you have a Distributor you want to get notified when a new Event is published?</p>
       <a href="/subscriptions/new" class="icon-link">
         Subscribe to Events of your Interest
@@ -22,7 +22,7 @@
           <use xlink:href="#people-circle"></use>
         </svg>
       </div>
-      <h2>Events</h2>
+      <h2><%= link_to 'Events', events_path %></h2>
       <p>Do you want to let others know about an Event happening soon?</p>
       <a href="/events/new" class="icon-link">
         Publish a new Event

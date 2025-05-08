@@ -5,12 +5,20 @@
 <h1>Subscriptions</h1>
 
 <div id="subscriptions">
-  <% @subscriptions.each do |subscription| %>
-  <%= render subscription %>
-  <p>
-    <%= link_to "Show this subscription", subscription %>
-  </p>
-  <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Distributor</th>
+        <th>Event</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @subscriptions.each do |subscription| %>
+      <%= render subscription %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New subscription", new_subscription_path %>

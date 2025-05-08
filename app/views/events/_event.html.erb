@@ -1,42 +1,26 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Name:</strong>
-    <%= event.name %>
-  </p>
-
-  <p>
-    <strong>Type:</strong>
+<tr>
+  <td>
+    <%= link_to event.name, event_path(event) %>
+  </td>
+  <td>
     <%= event.event_type.humanize %>
-  </p>
-
-  <p>
-    <strong>Starts at:</strong>
+  </td>
+  <td>
     <%= event.starts_at %>
-  </p>
-
-  <p>
-    <strong>Ends at:</strong>
+  </td>
+  <td>
     <%= event.ends_at %>
-  </p>
-
-  <p>
-    <strong>Longitude:</strong>
-    <%= event.longitude %>
-  </p>
-
-  <p>
-    <strong>Latitude:</strong>
-    <%= event.latitude %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
+  </td>
+  <td>
     <%= event.address %>
-  </p>
-
-  <p>
-    <strong>Active:</strong>
-    <%= event.active %>
-  </p>
-
-</div>
+  </td>
+  <td>
+    <%= link_to "Show", event %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_event_path(event) %>
+  </td>
+  <td>
+    <%= link_to "Delete", event, method: :delete, data: { confirm: "Are you sure?" } %>
+  </td>
+</tr>
