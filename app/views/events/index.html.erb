@@ -5,12 +5,23 @@
 <h1>Events</h1>
 
 <div id="events">
-  <% @events.each do |event| %>
-  <%= render event %>
-  <p>
-    <%= link_to "Show this event", event %>
-  </p>
-  <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Starts At</th>
+        <th>Ends At</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+      <%= render event %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New event", new_event_path %><br />

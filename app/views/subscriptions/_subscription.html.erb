@@ -1,22 +1,20 @@
-<div id="<%= dom_id subscription %>">
-  <p>
-    <strong>Event type:</strong>
+<tr>
+  <td>
+    <%= link_to subscription.name, subscription_path(subscription) %>
+  </td>
+  <td>
     <%= subscription.event_type.humanize %>
-  </p>
-
-  <p>
-    <strong>Name:</strong>
-    <%= subscription.name %>
-  </p>
-
-  <p>
-    <strong>Url:</strong>
+  </td>
+  <td>
     <%= subscription.url %>
-  </p>
-
-  <p>
-    <strong>Active:</strong>
-    <%= subscription.active %>
-  </p>
-
-</div>
+  </td>
+  <td>
+    <%= link_to "Show", subscription %>
+  </td>
+  <td>
+    <%= link_to "Edit", edit_subscription_path(subscription) %>
+  </td>
+  <td>
+    <%= link_to "Delete", subscription, method: :delete, data: { confirm: "Are you sure?" } %>
+  </td>
+</tr>
