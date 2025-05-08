@@ -1,5 +1,6 @@
 class TravellersController < ApplicationController
   before_action :set_traveller, only: %i[ show edit update destroy ]
+  skip_forgery_protection only: :notify
 
   # GET /travellers or /travellers.json
   def index
@@ -55,6 +56,14 @@ class TravellersController < ApplicationController
       format.html { redirect_to travellers_path, status: :see_other, notice: "Traveller was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def notify
+    request_body = request.read_body
+    request_body = ActiveSupport::JSON.decode(request_body)
+    event = request_body["event"]
+    results_page_url = request_body["results_page_url"]
+    NotifyTravellersJob.perform_later(event, results_page_url)
   end
 
   private

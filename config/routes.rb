@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :subscriptions
 
   post "events/callback", to: "events#callback", as: :events_callback
+  post "notify_travellers", to: "travellers#notify", as: :notify_travellers
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
