@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_181949) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_08_093556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -37,5 +37,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_181949) do
     t.string "event_type", null: false
     t.index ["event_type"], name: "index_subscriptions_on_event_type"
     t.index ["name"], name: "index_subscriptions_on_name", unique: true
+  end
+
+  create_table "travellers", force: :cascade do |t|
+    t.string "mobile", null: false
+    t.string "event_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mobile", "event_type"], name: "index_travellers_on_mobile_and_event_type", unique: true
+    t.index ["mobile"], name: "index_travellers_on_mobile"
   end
 end

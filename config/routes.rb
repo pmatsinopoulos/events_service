@@ -1,12 +1,14 @@
 require "sidekiq/web" # require the web UI
 
 Rails.application.routes.draw do
+  resources :travellers
   mount Sidekiq::Web => "/sidekiq"
 
   resources :events
   resources :subscriptions
 
   post "events/callback", to: "events#callback", as: :events_callback
+  post "notify_travellers", to: "travellers#notify", as: :notify_travellers
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
