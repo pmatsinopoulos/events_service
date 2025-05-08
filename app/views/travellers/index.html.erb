@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Travellers" %>
+
+<h1>Travellers</h1>
+
+<div id="travellers">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Mobile Number</th>
+        <th>Event Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @travellers.each do |traveller| %>
+      <%= render traveller %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to "New traveller", new_traveller_path %>

@@ -1,6 +1,7 @@
 require "sidekiq/web" # require the web UI
 
 Rails.application.routes.draw do
+  resources :travellers
   mount Sidekiq::Web => "/sidekiq"
 
   resources :events
