@@ -59,7 +59,7 @@ class TravellersController < ApplicationController
   end
 
   def notify
-    request_body = request.read_body
+    request_body = request.body.read
     request_body = ActiveSupport::JSON.decode(request_body)
     event = request_body["event"]
     results_page_url = request_body["results_page_url"]
